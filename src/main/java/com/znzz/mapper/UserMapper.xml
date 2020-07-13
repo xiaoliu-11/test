@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.znzz.mapper.UserMapper">
+	<insert id="add"  parameterType="User">
+	    insert into manager (name,age,sex,idcard,phone,address,time )
+	     values (#{name},#{age},#{sex},#{idcard},#{phone},#{address},#{time})
+	</insert>
+	
+	<delete id="delete" parameterType="User">
+	   delete from manager where id=#{id}
+	</delete>
+	
+	<select id="get" parameterType="int" resultType="User">
+	   select * from manager where id=#{id}
+	</select>
+	
+	<!-- 分页查+模糊查询 -->
+	<select id="getAllUserByPage" resultMap="user" parameterType="String">
+		select * from manager
+		<where>
+			<if test="name != null and name != ''">
+				and name like '%${name}%'
+			</if>
+			<if test="phone != null and phone != ''">
+				and phone like '%${phone}%'
+			</if>
+		</where>
+		limit #{startRecord},#{pageSize}
+	</select>
+	
+	<select id="userCount" resultType="int" parameterType="String">
+		select count(*) from manager
+		<where>
+			<if test="name != null and name != ''">
+				and name like '%${name}%'
+			</if>
+			<if test="phone != null and phone != ''">
+				and phone like '%${phone}%'
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="getUserByPhone" parameterType="String"  resultMap="user">
+		select * from manager where phone=#{phone}
+	</select>
+	
+	<select id="getCount" parameterType="int" resultType="long">
+	   select count(*) from manager where id=#{id}
+	</select>
+	
+	<update id="update" parameterType="User">
+	    update manager set name=#{name},age=#{age},sex=#{sex},idcard=#{idcard}, phone=#{phone}, 
+	                       address=#{address},time=#{time} where id=#{id}
+	</update>
+	
+	<select id="list"  resultType="User">
+	   select * from manager 
+	</select>
+<!-- 映射结果集 -->
+<resultMap type="com.znzz.pojo.User" id="user">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>	<!-- 表  >:>  类 -->
+		<result column="age" property="age"/>
+		<result column="sex" property="sex"/>
+		<result column="idcard" property="idcard"/>
+		<result column="phone" property="phone"/>
+		<result column="address" property="address"/>
+		<result column="time" property="time"/>
+		<result column="password" property="password"/>
+		
+	</resultMap>
+	
+
+
+	</mapper>

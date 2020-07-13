@@ -1,0 +1,25 @@
+/*set font size of  the dialog title*/
+.ui-dialog .ui-dialog-title{
+    font-size: 15px;
+}
+
+/*set font size of  the words in dialog*/
+#my_dialog{
+	font-size: 15px;
+}
+
+#my_dialog #create_name,#my_dialog #create_author{
+	width: 150px;
+}
+
+#create_name{
+	margin-left: 6px;
+}
+#create_author{
+	margin-left: 4px;
+}
+#create_author, #create_type{
+	margin-top: 10px;
+}
+
+
